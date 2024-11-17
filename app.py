@@ -1,7 +1,18 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+def install_and_import(package):
+    import importlib
+    try:
+        importlib.import_module(package)
+    except ImportError:
+        import pip
+        pip.main(['install', package])
+    finally:
+        globals()[package] = importlib.import_module(package)
+
+
+install_and_import('joblib')
 
 model = joblib.load('model.pkl')
 def main():
